@@ -1,0 +1,23 @@
+{
+  "name": "capacity-manager",
+  "version": "1.0.0",
+  "description": "Manages capacity (rate) limits, allowing services to adjust to threshold or limit calls",
+  "main": "lib/index.js",
+  "repository": "github:rsmogura/capacity-rate-limiter",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "nyc ./node_modules/.bin/mocha --exit test/",
+    "release": "npm run build && npm run test"
+  },
+  "author": "Rado Smogura",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.2.0",
+    "typescript": "^3.3.3"
+  }
+}
