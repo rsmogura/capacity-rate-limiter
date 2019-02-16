@@ -1,6 +1,6 @@
 {
   "name": "capacity-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manages capacity (rate) limits, allowing services to adjust to threshold or limit calls",
   "main": "lib/index.js",
   "repository": "github:rsmogura/capacity-rate-limiter",

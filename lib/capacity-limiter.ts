@@ -41,6 +41,8 @@ export class CapacityLimiter {
     this.maximumCapacity = props.maximumCapacity;
     this.minimumCapacity = props.minimumCapacity || 0;
     this.setConsumedCapacity(props.initialCapacity || this.minimumCapacity);
+
+    this.emitter.setMaxListeners(Infinity);
   }
 
   /** 
@@ -58,10 +60,11 @@ export class CapacityLimiter {
     return new Promise(resolve => {
       const handler = () => {
         if (this._consumedCapacity + amount <= this.maximumCapacity) {
-          this.setConsumedCapacity(this._consumedCapacity + amount);
-
           // Prevent memory leak
           this.emitter.removeListener(CapacityLimiter.ON_CONSUMED_CAPACITY_CHANGE, handler);
+
+          this.setConsumedCapacity(this._consumedCapacity + amount);
+
           resolve();
         }
       };
@@ -76,7 +79,7 @@ export class CapacityLimiter {
 
   public setConsumedCapacity(val: number) {
     this._consumedCapacity = Math.max(val, this.minimumCapacity);
-    this.emitter.emit(CapacityLimiter.ON_CONSUMED_CAPACITY_CHANGE, this);
+    setImmediate(() => this.emitter.emit(CapacityLimiter.ON_CONSUMED_CAPACITY_CHANGE, this));
   }
 
   public setMaximumCapacity(amount: number) {
